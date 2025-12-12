@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-filters
+      author: klillenb
+      changes:
+        - createTable:
+            tableName: filters
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: criteria
+                  type: TEXT
+              - column:
+                  name: condition
+                  type: TEXT
+              - column:
+                  name: filter_value
+                  type: TEXT
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: NOW()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMP

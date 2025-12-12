@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: seed-filters
+      author: klillenb
+      changes:
+        - insert:
+            tableName: filters
+            columns:
+              - column: { name: name, value: "My amount filter" }
+              - column: { name: criteria, value: "Amount" }
+              - column: { name: condition, value: "More" }
+              - column: { name: filter_value, value: "4" }
+        - insert:
+            tableName: filters
+            columns:
+              - column: { name: name, value: "My title filter" }
+              - column: { name: criteria, value: "Title" }
+              - column: { name: condition, value: "Starts with" }
+              - column: { name: filter_value, value: "Meow" }
