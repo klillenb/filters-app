@@ -1,6 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.filter-table {
+  @apply min-w-full bg-white border border-gray-200;
+}
+
+.filter-table-header-row {
+  @apply bg-gray-100 border-b;
+}
+
+.filter-table-cell {
+    @apply py-2 px-4;
+}
+
+.filter-table-cell-header {
+    @apply text-left font-medium;
+}
+
+.filter-table-row {
+  @apply border-b hover:bg-gray-50 transition-colors;
+}
