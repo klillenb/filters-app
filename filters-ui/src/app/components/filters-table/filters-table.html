@@ -1,0 +1,29 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Filters list</h2>
+
+  @if (filters$ | async; as filters) {
+  <table class="min-w-full bg-white border border-gray-200">
+    <thead>
+      <tr class="bg-gray-100 border-b">
+        <th class="py-2 px-4 text-left font-medium">Name</th>
+        <th class="py-2 px-4 text-left font-medium">Criteria</th>
+        <th class="py-2 px-4 text-left font-medium">Condition</th>
+        <th class="py-2 px-4 text-left font-medium">Value</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (filter of filters; track $index) {
+      <tr class="border-b hover:bg-gray-50">
+        <td class="py-2 px-4">{{ filter.name }}</td>
+        <td class="py-2 px-4">{{ filter.criteria }}</td>
+        <td class="py-2 px-4">{{ filter.condition }}</td>
+        <td class="py-2 px-4">{{ filter.filterValue }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  } @else {
+  <div class="text-gray-600">Loading…</div>
+  }
+</div>
