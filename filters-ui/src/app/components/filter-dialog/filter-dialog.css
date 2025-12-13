@@ -1,0 +1,34 @@
+@import 'tailwindcss';
+
+.overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50;
+}
+
+.dialog {
+  @apply w-[600px] min-h-[300px] max-h-[80vh] bg-white rounded-lg shadow-xl overflow-auto flex flex-col;
+  resize: vertical;
+}
+
+.dialog-header {
+  @apply bg-cyan-900 p-4 rounded-t-lg flex justify-between items-center;
+}
+
+.dialog-body {
+  @apply p-6 overflow-y-auto flex flex-col gap-4;
+}
+
+.dialog-footer {
+  @apply flex justify-center bg-gray-100 gap-3 p-4 border-t border-gray-200 mt-auto;
+}
+
+.cancel-button {
+  @apply px-9 py-2 bg-zinc-600 hover:bg-zinc-400;
+}
+
+.primary-button {
+  @apply bg-blue-700 px-9 py-2 hover:bg-blue-500;
+}
+
+.common-button {
+  @apply rounded-md text-sm font-medium text-white;
+}

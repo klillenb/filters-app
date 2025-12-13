@@ -1,1 +1,8 @@
-<app-filters-table />
+<div class="table-wrapper">
+  <app-filters-table />
+  <button class="dialog-button" (click)="openDialog()">Add filter</button>
+</div>
+
+@if (isDialogOpen) {
+  <app-filter-dialog (closed)="onDialogClose($event)" />
+}
