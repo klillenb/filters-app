@@ -79,12 +79,4 @@ class FilterControllerTest {
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.name").value(name));
     }
-
-    @Test
-    void delete_shouldReturnNoContent() throws Exception {
-        doNothing().when(service).delete(1L);
-
-        mockMvc.perform(delete(URI + "/1"))
-                .andExpect(status().isNoContent());
-    }
 }

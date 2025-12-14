@@ -1,7 +1,6 @@
 package com.klillenb.filtersapi.service;
 
 import com.klillenb.filtersapi.dto.FilterDto;
-import com.klillenb.filtersapi.exception.ResourceNotFoundException;
 import com.klillenb.filtersapi.mapper.FilterMapper;
 import com.klillenb.filtersapi.model.Filter;
 import com.klillenb.filtersapi.repository.FilterRepository;
@@ -14,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -75,26 +73,5 @@ class FilterServiceTest {
         verify(mapper).map(dto);
         verify(repository).save(filter);
         verify(mapper).map(filter);
-    }
-
-    @Test
-    void delete_shouldCallRepositoryWhenExists() {
-        when(repository.existsById(ID)).thenReturn(true);
-
-        target.delete(ID);
-
-        verify(repository).existsById(ID);
-        verify(repository).deleteById(ID);
-    }
-
-    @Test
-    void delete_shouldThrowWhenNotExists() {
-        when(repository.existsById(ID)).thenReturn(false);
-
-        var exception = assertThrows(ResourceNotFoundException.class, () -> target.delete(ID));
-
-        assertThat(exception.getMessage()).isEqualTo("Filter not found with id: " + ID);
-        verify(repository).existsById(ID);
-        verify(repository, never()).deleteById(any());
     }
 }

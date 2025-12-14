@@ -1,7 +1,6 @@
 package com.klillenb.filtersapi.service;
 
 import com.klillenb.filtersapi.dto.FilterDto;
-import com.klillenb.filtersapi.exception.ResourceNotFoundException;
 import com.klillenb.filtersapi.mapper.FilterMapper;
 import com.klillenb.filtersapi.repository.FilterRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,12 +28,5 @@ public class FilterService {
         var saved = repository.save(toSave);
 
         return mapper.map(saved);
-    }
-
-    public void delete(Long id) {
-        if (!repository.existsById(id)) {
-            throw new ResourceNotFoundException("Filter not found with id: " + id);
-        }
-        repository.deleteById(id);
     }
 }
