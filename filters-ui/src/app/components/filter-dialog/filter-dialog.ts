@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FilterRowValue } from '../../models/filter-row';
+import { Criteria } from '../../models/criteria';
 import { FilterRow } from '../filter-row/filter-row';
 import { FormsModule } from '@angular/forms';
 
@@ -10,21 +10,21 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './filter-dialog.css',
 })
 export class FilterDialog {
-  @Output() closed = new EventEmitter<{ name: string; criteria: FilterRowValue[] } | null>();
+  @Output() closed = new EventEmitter<{ name: string; criteria: Criteria[] } | null>();
 
   filterName: string = '';
-  criteriaRows: (FilterRowValue | null)[] = [null];
+  criteriaRows: (Criteria | null)[] = [null];
 
   addRow() {
     this.criteriaRows.push({
-      field: 'Amount',
-      operator: 'More',
+      name: 'Amount',
+      condition: 'More',
       value: ''
     });
   }
 
   getRowChangeFn(index: number) {
-    return (value: FilterRowValue | null) => {
+    return (value: Criteria | null) => {
       this.criteriaRows[index] = value;
     };
   }
@@ -36,7 +36,7 @@ export class FilterDialog {
   confirm() {
     this.closed.emit({
       name: this.filterName.trim(),
-      criteria: this.criteriaRows as FilterRowValue[],
+      criteria: this.criteriaRows as Criteria[],
     });
 
     console.log(closed)

@@ -1,7 +1,7 @@
 import { FieldType } from "../types/field-type";
 
-export interface FilterRowValue {
-    field: FieldType;
-    operator: string;
+export interface Criteria {
+    name: FieldType;
+    condition: string;
     value: string | number;
 }

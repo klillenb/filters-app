@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FieldType } from '../../types/field-type';
-import { FilterRowValue } from '../../models/filter-row';
+import { Criteria } from '../../models/criteria';
 
 @Component({
   selector: 'app-filter-row',
@@ -11,7 +11,7 @@ import { FilterRowValue } from '../../models/filter-row';
 })
 export class FilterRow implements OnInit {
   @Input() defaultField: FieldType = 'Amount';
-  @Output() valueChange = new EventEmitter<FilterRowValue | null>();
+  @Output() valueChange = new EventEmitter<Criteria | null>();
 
   fields: FieldType[] = ['Amount', 'Title', 'Date'];
 
@@ -42,8 +42,8 @@ export class FilterRow implements OnInit {
   emitChange() {
     if (this.field && this.operator && this.value !== '') {
       this.valueChange.emit({
-        field: this.field,
-        operator: this.operator,
+        name: this.field,
+        condition: this.operator,
         value: this.value,
       });
     } else {

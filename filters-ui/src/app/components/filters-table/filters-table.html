@@ -14,12 +14,18 @@
 
     <tbody>
       @for (filter of filters; track $index) {
-      <tr class="filter-table-row">
-        <td class="filter-table-cell">{{ filter.name }}</td>
-        <td class="filter-table-cell">{{ filter.criteria }}</td>
-        <td class="filter-table-cell">{{ filter.condition }}</td>
-        <td class="filter-table-cell">{{ filter.filterValue }}</td>
-      </tr>
+        @for (criterion of filter.criteria; let i = $index; track $index) {
+          <tr class="filter-table-row">
+            <td class="filter-table-cell">
+                @if (i === 0) {
+                    {{ filter.name }}
+                }
+            </td>
+            <td class="filter-table-cell">{{ criterion.name }}</td>
+            <td class="filter-table-cell">{{ criterion.condition }}</td>
+            <td class="filter-table-cell">{{ criterion.value }}</td>
+          </tr>
+        } 
       }
     </tbody>
   </table>

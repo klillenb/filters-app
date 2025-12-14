@@ -1,8 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FiltersTable } from './components/filters-table/filters-table';
 import { FilterDialog } from './components/filter-dialog/filter-dialog';
-import { FilterRow } from './components/filter-row/filter-row';
-import { FilterRowValue } from './models/filter-row';
+import { Criteria } from './models/criteria';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +18,7 @@ export class App {
     this.isDialogOpen = true;
   }
 
-  onDialogClose(result: { name: string; criteria: FilterRowValue[] } | null) {
+  onDialogClose(result: { name: string; criteria: Criteria[] } | null) {
     this.isDialogOpen = false;
 
     console.log(result);
