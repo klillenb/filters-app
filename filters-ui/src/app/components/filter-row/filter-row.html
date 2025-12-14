@@ -1,7 +1,7 @@
-<div class="grid grid-cols-3 gap-4 items-end">
+<div class="grid grid-cols-3 gap-4 items-center">
   <div>
     <select
-      class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
       [(ngModel)]="field"
       (ngModelChange)="onFieldChange()"
     >
@@ -15,7 +15,7 @@
 
   <div>
     <select
-      class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
       [(ngModel)]="operator"
       [disabled]="!field"
     >
@@ -31,21 +31,21 @@
     @switch (field) { @case ('Amount') {
     <input
       type="number"
-      class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
       [(ngModel)]="value"
       (ngModelChange)="emitChange()"
     />
     } @case ('Title') {
     <input
       type="text"
-      class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
       [(ngModel)]="value"
       (ngModelChange)="emitChange()"
     />
     } @case ('Date') {
     <input
       type="date"
-      class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
       [(ngModel)]="value"
       (ngModelChange)="emitChange()"
     />

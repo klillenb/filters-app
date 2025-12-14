@@ -8,32 +8,34 @@
     </div>
 
     <div class="dialog-body">
-      <div class="mb-6 grid grid-cols-[80px_1fr] items-center gap-4">
+      <div class="mb-2 grid grid-cols-[80px_1fr_auto] items-center gap-2">
         <label class="text-sm font-medium text-gray-700"> Filter name </label>
 
         <input
           type="text"
-          class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          class="col-span-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           [(ngModel)]="filterName"
         />
       </div>
 
-      <div class="flex flex-col gap-4">
-        @for (row of criteriaRows; track $index) {
-          <div class="grid grid-cols-[80px_1fr] items-start gap-4">
-            @if ($index === 0) {
-              <label class="pt2 text-sm font-medium text-gray-700"> Criteria </label>
-            } @if ($index > 0) {
-              <span></span>
-            }
+      @for (row of criteriaRows; track $index) {
+        <div class="grid grid-cols-[80px_1fr_auto] items-center gap-2">
+          @if ($index === 0) {
+            <label class="pt2 text-sm font-medium text-gray-700"> Criteria </label>
+          } @if ($index > 0) {
+            <span></span>
+          }
 
-            <app-filter-row
-              [defaultField]="'Amount'"
-              (valueChange)="getRowChangeFn($index)($event)"
-            />
-          </div>
-        }
-      </div>
+          <app-filter-row
+            [defaultField]="'Amount'"
+            (valueChange)="getRowChangeFn($index)($event)"
+          />
+
+          <button class="ml-2 text-white bg-pink-800 font-bold px-2 py-1 rounded hover:bg-pink-700" (click)="removeRow($index)">
+            &minus;
+          </button>
+        </div>
+      }
 
       <div class="flex justify-center mt-2">
         <button

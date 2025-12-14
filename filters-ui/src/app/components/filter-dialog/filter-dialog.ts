@@ -23,6 +23,10 @@ export class FilterDialog {
     });
   }
 
+  removeRow(index: number) {
+    this.criteriaRows.splice(index, 1);
+  }
+
   getRowChangeFn(index: number) {
     return (value: Criteria | null) => {
       this.criteriaRows[index] = value;
