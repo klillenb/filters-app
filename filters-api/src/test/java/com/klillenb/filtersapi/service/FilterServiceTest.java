@@ -31,26 +31,15 @@ class FilterServiceTest {
 
     private static final long ID = 1L;
     private static final String NAME = "Test name";
-    private static final String CRITERIA = "Test criteria";
-    private static final String CONDITION = "Test condition";
-    private static final String FILTER_VALUE = "test value";
 
     private Filter createFilter() {
         return new Filter()
                 .setId(ID)
-                .setName(NAME)
-                .setCriteria(CRITERIA)
-                .setCondition(CONDITION)
-                .setFilterValue(FILTER_VALUE);
+                .setName(NAME);
     }
 
     private FilterDto createDto() {
-        return new FilterDto()
-                .setId(ID)
-                .setName(NAME)
-                .setCriteria(CRITERIA)
-                .setCondition(CONDITION)
-                .setFilterValue(FILTER_VALUE);
+        return new FilterDto().setName(NAME);
     }
 
     @Test
@@ -59,7 +48,7 @@ class FilterServiceTest {
         var dtoList = List.of(createDto());
 
         when(repository.findAll()).thenReturn(filterList);
-        when(mapper.toDto(filterList.getFirst())).thenReturn(dtoList.getFirst());
+        when(mapper.map(filterList.getFirst())).thenReturn(dtoList.getFirst());
 
         var result = target.findAll();
 
@@ -67,7 +56,7 @@ class FilterServiceTest {
         assertThat(result.getFirst()).isEqualTo(dtoList.getFirst());
 
         verify(repository).findAll();
-        verify(mapper).toDto(filterList.getFirst());
+        verify(mapper).map(filterList.getFirst());
     }
 
     @Test
@@ -75,17 +64,17 @@ class FilterServiceTest {
         var dto = createDto();
         var filter = createFilter();
 
-        when(mapper.toModel(dto)).thenReturn(filter);
+        when(mapper.map(dto)).thenReturn(filter);
         when(repository.save(filter)).thenReturn(filter);
-        when(mapper.toDto(filter)).thenReturn(dto);
+        when(mapper.map(filter)).thenReturn(dto);
 
         var result = target.save(dto);
 
         assertThat(result).isEqualTo(dto);
 
-        verify(mapper).toModel(dto);
+        verify(mapper).map(dto);
         verify(repository).save(filter);
-        verify(mapper).toDto(filter);
+        verify(mapper).map(filter);
     }
 
     @Test

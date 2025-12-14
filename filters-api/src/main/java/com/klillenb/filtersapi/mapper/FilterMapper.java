@@ -2,27 +2,47 @@ package com.klillenb.filtersapi.mapper;
 
 import com.klillenb.filtersapi.dto.FilterDto;
 import com.klillenb.filtersapi.model.Filter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+
 @Component
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class FilterMapper {
 
-    public FilterDto toDto(Filter filter) {
+    private final CriteriaMapper criteriaMapper;
+
+    public FilterDto map(Filter filter) {
         return new FilterDto()
                 .setId(filter.getId())
                 .setName(filter.getName())
-                .setCriteria(filter.getCriteria())
-                .setCondition(filter.getCondition())
-                .setFilterValue(filter.getFilterValue());
+                .setCriteria(
+                        filter.getCriteria() == null
+                            ? List.of()
+                            : filter.getCriteria()
+                                .stream()
+                                .map(criteriaMapper::map)
+                                .toList()
+                );
     }
 
-    public Filter toModel(FilterDto filter) {
-        return new Filter()
-                .setName(filter.getName())
-                .setCriteria(filter.getCriteria())
-                .setCondition(filter.getCondition())
-                .setFilterValue(filter.getFilterValue());
+    public Filter map(FilterDto filterDto) {
+        var filter = new Filter()
+                .setName(filterDto.getName());
+
+        return filter
+                .setCriteria(
+                        Optional.ofNullable(filterDto.getCriteria())
+                                .orElse(List.of())
+                                .stream()
+                                .map(c -> {
+                                    var criteria = criteriaMapper.map(c);
+                                    criteria.setFilter(filter);
+                                    return criteria;
+                                })
+                                .toList()
+                );
     }
 }

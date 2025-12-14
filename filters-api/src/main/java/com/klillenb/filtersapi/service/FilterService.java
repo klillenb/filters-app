@@ -21,15 +21,14 @@ public class FilterService {
         return repository
                 .findAll()
                 .stream()
-                .map(mapper::toDto).toList();
+                .map(mapper::map).toList();
     }
 
     public FilterDto save(FilterDto filterDto) {
-        // TODO: validation
-        var toSave = mapper.toModel(filterDto);
+        var toSave = mapper.map(filterDto);
         var saved = repository.save(toSave);
 
-        return mapper.toDto(saved);
+        return mapper.map(saved);
     }
 
     public void delete(Long id) {

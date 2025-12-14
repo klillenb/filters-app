@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-criteria
+      author: klillenb
+      changes:
+        - createTable:
+            tableName: criteria
+            columns:
+              - column:
+                  name: id
+                  type: BIGSERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: filter_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: condition
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: criteria_value
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: NOW()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: deleted_at
+                  type: TIMESTAMPTZ
+
+        - addForeignKeyConstraint:
+            baseTableName: criteria
+            baseColumnNames: filter_id
+            referencedTableName: filters
+            referencedColumnNames: id
+            constraintName: fk_criteria_filters
+            onDelete: CASCADE

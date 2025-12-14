@@ -8,28 +8,27 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 
 @Entity
 @Data
-@Table(name = "filters")
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class Filter {
+public class Criteria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "filter_id", nullable = false)
+    private Filter filter;
+
     private String name;
 
-    @OneToMany(
-        mappedBy = "filter",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
-    )
-    private List<Criteria> criteria;
+    private String condition;
+
+    private String criteriaValue;
 
     @Column(insertable = false, updatable = false)
     private OffsetDateTime createdAt;

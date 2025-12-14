@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: seed-data
+      author: klillenb
+      changes:
+        - insert:
+            tableName: filters
+            columns:
+              - column: { name: name, value: "My first filter" }
+        - insert:
+            tableName: filters
+            columns:
+              - column: { name: name, value: "My second filter" }
+
+        - insert:
+            tableName: criteria
+            columns:
+              - column: { name: filter_id, value: 1 }
+              - column: { name: name, value: "Amount" }
+              - column: { name: condition, value: "More" }
+              - column: { name: criteria_value, value: "4" }
+        - insert:
+            tableName: criteria
+            columns:
+              - column: { name: filter_id, value: 1 }
+              - column: { name: name, value: "Title" }
+              - column: { name: condition, value: "Contains" }
+              - column: { name: criteria_value, value: "Meow" }
+        - insert:
+            tableName: criteria
+            columns:
+              - column: { name: filter_id, value: 2 }
+              - column: { name: name, value: "Title" }
+              - column: { name: condition, value: "Starts with" }
+              - column: { name: criteria_value, value: "xd" }

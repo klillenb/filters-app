@@ -3,15 +3,15 @@ package com.klillenb.filtersapi.dto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.util.List;
-
 @Data
 @Accessors(chain = true)
-public class FilterDto {
+public class CriteriaDto {
 
     private Long id;
 
     private String name;
 
-    private List<CriteriaDto> criteria;
+    private String condition;
+
+    private String value;
 }
