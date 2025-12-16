@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { Filter } from '../../models/filter';
 import { ApiService } from '../../services/api';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { FilterReloadService } from '../../services/filter-reload';
 
 @Component({
   selector: 'app-filters-table',
@@ -12,6 +13,14 @@ import { AsyncPipe } from '@angular/common';
 })
 export class FiltersTable {
   private readonly apiService: ApiService = inject(ApiService);
+  private readonly reloadService: FilterReloadService = inject(FilterReloadService);
 
-  filters$: Observable<Filter[]> = this.apiService.getFilters();
+  filters$!: Observable<Filter[]>;
+
+  constructor() {
+    effect(() => {
+      this.reloadService.reload();
+      this.filters$ = this.apiService.getFilters();
+    });
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FieldType } from '../../types/field-type';
 import { Criteria } from '../../models/criteria';
@@ -10,44 +10,49 @@ import { Criteria } from '../../models/criteria';
   styleUrl: './filter-row.css',
 })
 export class FilterRow implements OnInit {
-  @Input() defaultField: FieldType = 'Amount';
-  @Output() valueChange = new EventEmitter<Criteria | null>();
+  @Output() valueChange = new EventEmitter<Criteria>();
 
   fields: FieldType[] = ['Amount', 'Title', 'Date'];
 
-  field: FieldType = this.defaultField;
-  operator: string = '';
-  value: any = '';
+  field: FieldType = 'Amount';
+  condition: string = '';
+  value: number | string = '';
 
-  operatorOptions: string[] = [];
+  conditionList: string[] = [];
 
-  private operatorMap: Record<FieldType, string[]> = {
+  private conditionMap: Record<FieldType, string[]> = {
     Amount: ['More', 'Less', 'Equal'],
     Title: ['Starts with', 'Ends with', 'Contains'],
     Date: ['From', 'To'],
   };
 
   ngOnInit(): void {
-    this.field = this.defaultField;
-    this.operatorOptions = this.operatorMap[this.field];
+    this.conditionList = this.conditionMap[this.field];
   }
 
-  onFieldChange() {
-    this.operator = '';
+  get inputType(): string {
+    switch (this.field) {
+      case 'Amount':
+        return 'number';
+      case 'Date':
+        return 'date';
+      default:
+        return 'text';
+    }
+  }
+
+  onFieldChange(): void {
+    this.condition = '';
     this.value = '';
-    this.operatorOptions = this.operatorMap[this.field];
+    this.conditionList = this.conditionMap[this.field];
     this.emitChange();
   }
 
-  emitChange() {
-    if (this.field && this.operator && this.value !== '') {
-      this.valueChange.emit({
-        name: this.field,
-        condition: this.operator,
-        value: this.value,
-      });
-    } else {
-      this.valueChange.emit(null);
-    }
+  emitChange(): void {
+    this.valueChange.emit({
+      name: this.field,
+      condition: this.condition,
+      value: this.value,
+    });
   }
 }

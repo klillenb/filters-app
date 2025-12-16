@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Filter } from '../models/filter';
 import { environment } from '../environment/environment';
 
@@ -18,10 +18,6 @@ export class ApiService {
 
   createFilter(filter: Filter): Observable<Filter> {
     return this.http.post<Filter>(this.baseUrl, filter).pipe(catchError(this.handleError));
-  }
-
-  deleteFilter(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

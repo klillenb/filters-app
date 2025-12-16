@@ -1,48 +1,64 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, inject, Input, WritableSignal } from '@angular/core';
 import { Criteria } from '../../models/criteria';
 import { FilterRow } from '../filter-row/filter-row';
 import { FormsModule } from '@angular/forms';
+import { Filter } from '../../models/filter';
+import { ApiService } from '../../services/api';
+import { FilterReloadService } from '../../services/filter-reload';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-filter-dialog',
-  imports: [FilterRow, FormsModule],
+  imports: [FilterRow, FormsModule, CommonModule],
   templateUrl: './filter-dialog.html',
   styleUrl: './filter-dialog.css',
 })
 export class FilterDialog {
-  @Output() closed = new EventEmitter<{ name: string; criteria: Criteria[] } | null>();
+  @Input({ required: true }) open!: WritableSignal<boolean>;
+  @Input() inline: boolean = false;
 
+  private readonly apiService: ApiService = inject(ApiService);
+  private readonly reloadService: FilterReloadService = inject(FilterReloadService);
+
+  defaultRow: Criteria = { name: 'Amount', condition: '', value: '' };
   filterName: string = '';
-  criteriaRows: (Criteria | null)[] = [null];
+  criteriaRows: Criteria[] = [this.defaultRow];
 
-  addRow() {
-    this.criteriaRows.push({
-      name: 'Amount',
-      condition: 'More',
-      value: ''
-    });
+  addRow(): void {
+    this.criteriaRows.push({ ...this.defaultRow });
   }
 
-  removeRow(index: number) {
+  removeRow(index: number): void {
     this.criteriaRows.splice(index, 1);
   }
 
   getRowChangeFn(index: number) {
-    return (value: Criteria | null) => {
+    return (value: Criteria) => {
       this.criteriaRows[index] = value;
     };
   }
 
-  close() {
-    this.closed.emit(null);
+  close(): void {
+    this.open.set(false);
   }
 
-  confirm() {
-    this.closed.emit({
-      name: this.filterName.trim(),
-      criteria: this.criteriaRows as Criteria[],
-    });
+  confirm(): void {
+    if (this.filterName === '' || this.criteriaRows.length < 1) {
+      alert('Not all fields are filled');
+      return;
+    }
 
-    console.log(closed)
+    const data: Filter = {
+      name: this.filterName,
+      criteria: this.criteriaRows,
+    };
+
+    this.apiService.createFilter(data).subscribe({
+      next: () => {
+        this.reloadService.trigger();
+        this.open.set(false);
+      },
+      error: (err) => alert(err),
+    });
   }
 }

@@ -1,11 +1,15 @@
 @import 'tailwindcss';
 
+.filter-table-header {
+  @apply text-xl font-bold mb-4;
+}
+
 .filter-table {
   @apply min-w-full bg-white border border-gray-200;
 }
 
 .filter-table-header-row {
-  @apply bg-sky-400 border-b border-cyan-700;
+  @apply bg-cyan-900 p-4 rounded-t-lg;
 }
 
 .filter-table-cell {
@@ -17,5 +21,5 @@
 }
 
 .filter-table-row {
-  @apply border-b hover:bg-gray-50 transition-colors;
+  @apply border-b hover:bg-cyan-50 transition-colors;
 }

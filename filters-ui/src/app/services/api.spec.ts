@@ -31,20 +31,16 @@ describe('ApiService', () => {
       {
         id: 1,
         name: 'Filter 1',
-        criteria: 'Criteria 1',
-        condition: 'Condition 1',
-        filterValue: 'Test value',
+        criteria: [],
       },
       {
         id: 2,
         name: 'Filter 2',
-        criteria: 'Criteria 2',
-        condition: 'Condition 2',
-        filterValue: 'Other value',
+        criteria: [],
       },
     ];
 
-    service.getFilter().subscribe((filters) => {
+    service.getFilters().subscribe((filters) => {
       expect(filters.length).toBe(2);
       expect(filters).toEqual(mockFilters);
     });
@@ -54,12 +50,28 @@ describe('ApiService', () => {
     req.flush(mockFilters);
   });
 
+  it('should handle error on getFilters', () => {
+    service.getFilters().subscribe({
+      next: () => {
+        throw new Error('Expected an error');
+      },
+      error: (error: Error) => {
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toBe('Error communicating with backend!');
+      },
+    });
+
+    const req = httpMock.expectOne(baseUrl);
+    req.error(new ErrorEvent('Network error'), {
+      status: 500,
+      statusText: 'Server error',
+    });
+  });
+
   it('should create a filter', () => {
     const newFilter: Filter = {
       name: 'New filter',
-      criteria: 'New criteria',
-      condition: 'New condition',
-      filterValue: 'New value',
+      criteria: [],
     };
 
     service.createFilter(newFilter).subscribe((filter) => {
@@ -72,30 +84,26 @@ describe('ApiService', () => {
     req.flush(newFilter);
   });
 
-  it('should delete a filter', () => {
-    const id = 1;
+  it('should handle error on createFilter', () => {
+    const newFilter: Filter = {
+      name: 'New filter',
+      criteria: [],
+    };
 
-    service.deleteFilter(id).subscribe((response) => {
-      expect(response).toBeUndefined();
-    });
-
-    const req = httpMock.expectOne(`${baseUrl}/${id}`);
-    expect(req.request.method).toBe('DELETE');
-    req.flush(null);
-  });
-
-  it('should handle error on getFilter', () => {
-    const errorMessage = 'random';
-
-    service.getFilter().subscribe({
-      next: () => 'expected an error',
-      error: (error) => {
-        expect(error).toBeTruthy();
-        expect(error.message).toBe('Error communicating with backend');
+    service.createFilter(newFilter).subscribe({
+      next: () => {
+        throw new Error('Expected an error');
+      },
+      error: (error: Error) => {
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toBe('Error communicating with backend!');
       },
     });
 
     const req = httpMock.expectOne(baseUrl);
-    req.error(new ErrorEvent('Network error'), { status: 500, statusText: errorMessage });
+    req.error(new ErrorEvent('Network error'), {
+      status: 500,
+      statusText: 'Server error',
+    });
   });
 });

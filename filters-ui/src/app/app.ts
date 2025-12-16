@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FiltersTable } from './components/filters-table/filters-table';
 import { FilterDialog } from './components/filter-dialog/filter-dialog';
-import { Criteria } from './models/criteria';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +11,15 @@ import { Criteria } from './models/criteria';
 export class App {
   protected readonly title = signal('filters-app-ui');
 
-  isDialogOpen: boolean = false;
+  isDialogOpen = signal(false);
+  isInline = signal(false);
 
   openDialog() {
-    this.isDialogOpen = true;
+    this.isDialogOpen.set(true);
   }
 
-  onDialogClose(result: { name: string; criteria: Criteria[] } | null) {
-    this.isDialogOpen = false;
-
-    console.log(result);
+  toggleInlineMode(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.isInline.set(target.checked);
   }
 }

@@ -5,5 +5,9 @@
 }
 
 .dialog-button {
-  @apply rounded-md bg-blue-600 px-6 py-3 text-white hover:bg-blue-700;
+  @apply bg-blue-700 px-4 py-2 ml-4 hover:bg-blue-500;
+}
+
+.mode-toggle {
+  @apply gap-2 my-2 mx-3;
 }

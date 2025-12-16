@@ -8,3 +8,7 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+button {
+  @apply rounded-md font-medium text-white hover:cursor-pointer;
+}

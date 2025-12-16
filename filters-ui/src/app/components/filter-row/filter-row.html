@@ -1,13 +1,13 @@
-<div class="grid grid-cols-3 gap-4 items-center">
+<div class="filter-row-grid">
   <div>
     <select
-      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      class="filter-control"
       [(ngModel)]="field"
       (ngModelChange)="onFieldChange()"
     >
-      @for (f of fields; track $index) {
-      <option [value]="f">
-        {{ f }}
+      @for (field of fields; track $index) {
+      <option [value]="field">
+        {{ field }}
       </option>
       }
     </select>
@@ -15,40 +15,23 @@
 
   <div>
     <select
-      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-      [(ngModel)]="operator"
-      [disabled]="!field"
+      class="filter-control"
+      [(ngModel)]="condition"
     >
-      @for (op of operatorOptions; track $index) {
-      <option [value]="op">
-        {{ op }}
+      @for (condition of conditionList; track $index) {
+      <option [value]="condition">
+        {{ condition }}
       </option>
       }
     </select>
   </div>
 
   <div>
-    @switch (field) { @case ('Amount') {
     <input
-      type="number"
-      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      [type]="inputType"
+      class="filter-control"
       [(ngModel)]="value"
       (ngModelChange)="emitChange()"
     />
-    } @case ('Title') {
-    <input
-      type="text"
-      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-      [(ngModel)]="value"
-      (ngModelChange)="emitChange()"
-    />
-    } @case ('Date') {
-    <input
-      type="date"
-      class="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-      [(ngModel)]="value"
-      (ngModelChange)="emitChange()"
-    />
-    } }
   </div>
 </div>

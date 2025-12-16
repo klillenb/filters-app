@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+.filter-row-grid {
+  @apply grid grid-cols-3 gap-4 items-center;
+}
+
+.filter-control {
+  @apply w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
+}
