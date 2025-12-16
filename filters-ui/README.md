@@ -14,6 +14,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 git clone https://github.com/klillenb/filters-app.git
 cd ./filters-app/filters-ui
 npm install
+```
 
 To start a local development server, run:
 
@@ -38,3 +39,4 @@ No data will be visible nor saved when running UI separately without API applica
 - Following the "design idea" more precisely.
 - Better validation, for example using FormBuilder, instead of using conditional statements.
 - Better alerting in case of validation error, backend error. Currently just using alert() and that's no bueno, some kind of snackback would look better.
+- Get more familiar with Angular 21 features (for example proper use of signals).
