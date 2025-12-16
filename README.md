@@ -1,5 +1,5 @@
 # Filters App
-This repository contains a monorepo with:
+This repository is a monorepo, that contains:
 - Frontend: Angular 21 (filters-ui)
 - Backend: Spring Boot, Gradle, Java 25 (filters-api)
 
