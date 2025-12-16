@@ -36,5 +36,5 @@ public class Criteria {
     @UpdateTimestamp
     private OffsetDateTime updatedAt;
 
-    private OffsetDateTime deleted_at;
+    private OffsetDateTime deletedAt;
 }
