@@ -9,6 +9,10 @@ This repository contains a monorepo with:
 
 ## Build and run with Docker
 ```bash
+git clone https://github.com/klillenb/filters-app.git
+
+cd ./filters-app
+
 docker-compose build
 
 docker-compose up
