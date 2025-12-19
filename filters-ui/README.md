@@ -38,5 +38,5 @@ No data will be visible nor saved when running UI separately without API applica
 - Better use of tailwind - first time playing with it, I'm sure it's not following the best practices and is way too verbose in terms of what it actually could be like.
 - Following the "design idea" more precisely.
 - Better validation, for example using FormBuilder, instead of using conditional statements.
-- Better alerting in case of validation error, backend error. Currently just using alert() and that's no bueno, some kind of snackback would look better.
+- Better alerting in case of validation error, backend error. Currently just using alert() and that's no bueno, some kind of snackbar would look better.
 - Get more familiar with Angular 21 features (for example proper use of signals).
