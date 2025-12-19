@@ -30,7 +30,7 @@ Application will start on default port 8080.
 ## What could've been done better
 - Not store H2 credentials (default values) in application.yaml
 - Could've kept the schema more simple
-- Enforce criteria conditions, right now it's basically free for all, so in case of any frontend changes (for example removing "Title"), then existing data would basically be unusable with transformation.
+- Enforce criteria conditions, right now it's basically free for all, so in case of any frontend changes (for example removing "Title"), then existing data could be unusable without transformation.
 - Better validation on request body, instead of _hoping_ that incoming data binds to DTO and fails if it differs.
 - Add authentication and authorization.
 - Entity metadata (updated_at, created_at) is redundant right now, because no relevant action is taking place.
